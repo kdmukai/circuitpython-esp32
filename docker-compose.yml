@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+
+  esp32_builder:
+    # Allow it to access USB devices/serial ports
+    privileged: true
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    # Keep the container running with a trivial ongoing task
+    command: tail -F /dev/null
+    volumes:
+      # Expose localhost files to the container, mapped to its '/code' dir
+      - .:/code
+      - /dev/tty.usbmodem01:/dev/tty.usbmodem01
