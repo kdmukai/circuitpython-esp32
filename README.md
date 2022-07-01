@@ -2,22 +2,9 @@
 Creates a Docker container to compile custom CircuitPython firmware for ESP-32 boards.
 
 
-## Clone repos
+## Spin up the Ubuntu container in Docker
 Clone this repo.
 
-Also clone the CircuitPython repo as a subdir:
-```bash
-git clone https://github.com/adafruit/circuitpython.git circuitpython
-cd circuitpython
-git checkout 7.3.1
-```
-
-Prep the CircuitPython repo
-```bash
-make fetch-submodules
-```
-
-## Spin up the Ubuntu container in Docker
 With Docker installed on the local machine:
 ```bash
 docker-compose build
@@ -53,15 +40,6 @@ cd ports/espressif
 source /root/home/esp/esp-idf/export.sh
 ```
 
-```bash
-pip install "pyparsing>=2.0.3,<2.4.0"
-pip install gdbgui==0.13.2.0
-pip install "python-socketio<5"
-pip install "jinja2<3.1"
-pip install "itsdangerous<2.1"
-pip install kconfiglib==13.7.1
-pip install construct==2.10.54
-```
 
 ## Compile a specific board firmware
 Within the Docker container:
@@ -96,15 +74,15 @@ cp build-unexpectedmaker_feathers2/firmware.uf2 /code/.
 ## Flash new CircuitPython firmware to FeatherS2
 see: https://feathers2.io/install_uf2.html#home
 
-The FeatherS2 ships with the UF2 bootloader already installed. To activate the download mode, click RST and then a moment later during the purple flash, press BOOT. The LED should change to green and the board will remount as `UFTHRS2BOOT`.
+The FeatherS2 ships with the UF2 bootloader already installed. To activate its download mode, click RST and then a moment later during the purple flash, press BOOT. The LED should change to green and the board will remount as `UFTHRS2BOOT`.
 
-Drag the compiled .u2f firmware (the one that you compiled in the Docker container) to the `UFTHRS2BOOT` drive. It will automatically load it and restart itself. The board will remount itself as `CIRCUITPY`.
+Copy the compiled .u2f firmware (the one that you compiled in the Docker container) to the `UFTHRS2BOOT` drive. It will automatically load it and restart itself. The board will remount itself as `CIRCUITPY`.
 
 
-### If you need to re-flash the UF2 bootloader
+### If you need to re-flash or update the UF2 bootloader
 On your local machine, download the `tinyuf2-unexpectedmaker_feathers2-xxx` UF2 bootloader firmware from https://github.com/adafruit/tinyuf2/releases
 
-Plug in the FeatherS2 and identify its name by doing an `ls` on `/dev` (e.g. `tty.usbmodem01` or `cu.usbmodem01`). Update the commands below accordingly.
+Plug in the FeatherS2 and identify its name by doing an `ls` on `/dev`. It should be listed as `tty.usbmodem01` or `cu.usbmodem01`. Update the commands below accordingly.
 
 Note that your local machine must also have the `esptool` installed (`pip install esptool`).
 
