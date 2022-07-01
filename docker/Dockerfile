@@ -36,6 +36,7 @@ RUN make fetch-submodules
 # Install CircuitPython python dependencies
 RUN pip3 install --upgrade -r requirements-dev.txt
 RUN pip3 install --upgrade -r requirements-doc.txt
+RUN pip3 install esptool
 
 # Build mpy-cross
 RUN make -j6 -C mpy-cross

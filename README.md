@@ -7,6 +7,7 @@ Clone this repo.
 
 With Docker installed on the local machine:
 ```bash
+cd circuitpython-esp32
 docker-compose build
 ```
 
@@ -31,7 +32,7 @@ cd /code/circuitpython
 pip3 install --upgrade -r requirements-dev.txt
 pip3 install --upgrade -r requirements-doc.txt
 
-# Build mpy-cross
+# Build mpy-cross (-j specifies number of cpu cores available; adjust for your machine)
 make -j6 -C mpy-cross
 
 # Install esp-idf python dependencies
@@ -45,6 +46,8 @@ source /root/home/esp/esp-idf/export.sh
 Within the Docker container:
 ```bash
 cd ports/espressif
+
+# (-j specifies number of cpu cores available; adjust for your machine)
 make -j6 BOARD=unexpectedmaker_feathers2
 ```
 
